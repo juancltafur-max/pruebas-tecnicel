@@ -19,7 +19,7 @@ def test_login_admin_correcto():
 
         WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.NAME,"password")) 
-        ). send_keys("1256")
+        ). send_keys("123456")
 
         WebDriverWait(driver, 10).until(
             EC.element_to_be_clickable((By.CSS_SELECTOR , "button"))
@@ -85,7 +85,7 @@ def test_Clientes_Nuevo_Cliente():
 
         WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.NAME,"password")) 
-        ). send_keys("1256")
+        ). send_keys("123456")
 
         WebDriverWait(driver, 10).until(
             EC.element_to_be_clickable((By.CSS_SELECTOR , "button"))
@@ -121,7 +121,7 @@ def test_Clientes_Nuevo_Cliente_Guardar():
 
         WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.NAME,"password")) 
-        ). send_keys("1256")
+        ). send_keys("123456")
 
         WebDriverWait(driver, 10).until(
             EC.element_to_be_clickable((By.CSS_SELECTOR , "button"))
@@ -174,7 +174,7 @@ def test_Clientes_Eliminar_Nuevo_Cliente ():
 
         WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.NAME,"password")) 
-        ). send_keys("1256")
+        ). send_keys("123456")
 
         WebDriverWait(driver, 10).until(
             EC.element_to_be_clickable((By.CSS_SELECTOR , "button"))
@@ -189,9 +189,9 @@ def test_Clientes_Eliminar_Nuevo_Cliente ():
         ).click()       
       
 
-        assert "listar.php" in driver.current_url
+        assert "dashboard.php" in driver.current_url
 
-        print("¡Prueba exitosa! El cliente fue eliminado de manera correcta.")
+        print("¿Eliminar este cliente y sus equipos/reparaciones asociadas?")
         
 
     finally:
@@ -209,11 +209,11 @@ def test_rol_tecnico_correcto():
                
         WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.NAME,"usuario")) 
-        ). send_keys("tecnico")
+        ). send_keys("tecnico1")
 
         WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.NAME,"password")) 
-        ). send_keys("1234")
+        ). send_keys("123456")
 
         WebDriverWait(driver, 10).until(
             EC.element_to_be_clickable((By.CSS_SELECTOR , "button"))
@@ -223,7 +223,7 @@ def test_rol_tecnico_correcto():
             EC.presence_of_element_located((By.CSS_SELECTOR, ".card h3"))
         ).text
 
-        assert "bienvenido tecnico" in mensaje.lower()
+        assert "bienvenido técnico uno" in mensaje.lower()
 
         print("PASS - Test inicio rol tecnico correcta ")
 
@@ -242,11 +242,11 @@ def test_rol_recepcion_correcto():
                
         WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.NAME,"usuario")) 
-        ). send_keys("recep")
+        ). send_keys("recepcion1")
 
         WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.NAME,"password")) 
-        ). send_keys("1234")
+        ). send_keys("123456")
 
         WebDriverWait(driver, 10).until(
             EC.element_to_be_clickable((By.CSS_SELECTOR , "button"))
@@ -261,4 +261,116 @@ def test_rol_recepcion_correcto():
         print("PASS - Test inicio rol recep correcta ")
 
     finally:
-        driver.quit()        
+        driver.quit()   
+
+def test_rol_admin_ver_reparacion():
+    driver = webdriver.Chrome()
+
+
+    try:
+    
+        driver.get ("http://localhost/tecnicelv1")
+
+               
+        WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.NAME,"usuario")) 
+        ). send_keys("admin")
+
+        WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.NAME,"password")) 
+        ). send_keys("123456")
+
+        WebDriverWait(driver, 10).until(
+            EC.element_to_be_clickable((By.CSS_SELECTOR , "button"))
+        ).click()  
+
+        WebDriverWait(driver, 10).until(
+            EC.element_to_be_clickable((By.CSS_SELECTOR , ".container .card .btn.btn-success"))
+        ).click()  
+
+        mensaje= WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR , ".navbar"))
+        ).text
+
+        assert "reparaciones" in mensaje.lower()
+
+        print("PASS - Test reparaciones ")
+
+    finally:
+        driver.quit()
+
+def test_rol_admin_ver_inventario():
+    driver = webdriver.Chrome()
+
+
+    try:
+    
+        driver.get ("http://localhost/tecnicelv1")
+
+               
+        WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.NAME,"usuario")) 
+        ). send_keys("admin")
+
+        WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.NAME,"password")) 
+        ). send_keys("123456")
+
+        WebDriverWait(driver, 10).until(
+            EC.element_to_be_clickable((By.CSS_SELECTOR , "button"))
+        ).click()  
+
+        WebDriverWait(driver, 10).until(
+            EC.element_to_be_clickable((By.CSS_SELECTOR , ".container .card .btn.btn-primary"))
+        ).click()  
+
+        mensaje= WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR , ".navbar"))
+        ).text
+
+        assert "clientes" in mensaje.lower()
+
+        print("PASS - Test - Inventario_Repuestos ")
+
+    finally:
+        driver.quit()
+
+def test_rol_admin_ver_inventario_proveedores():
+    driver = webdriver.Chrome()
+
+
+    try:
+    
+        driver.get ("http://localhost/tecnicelv1")
+
+               
+        WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.NAME,"usuario")) 
+        ). send_keys("admin")
+
+        WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.NAME,"password")) 
+        ). send_keys("123456")
+
+        WebDriverWait(driver, 10).until(
+            EC.element_to_be_clickable((By.CSS_SELECTOR , "button"))
+        ).click()  
+
+        WebDriverWait(driver, 10).until(
+            EC.element_to_be_clickable((By.CSS_SELECTOR , ".container .card .btn.btn-warning"))
+        ).click()  
+
+        WebDriverWait(driver, 10).until(
+            EC.element_to_be_clickable((By.CSS_SELECTOR , ".container .card .btn.btn-warning"))
+        ).click()  
+
+        mensaje= WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR , ".navbar"))
+        ).text
+
+        assert "inventario - proveedores" in mensaje.lower()
+
+        print("PASS - Test - Inventario_proveedor ")
+
+    finally:
+        driver.quit()
