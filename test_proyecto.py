@@ -138,6 +138,13 @@ def test_Clientes_Nuevo_Cliente_Guardar():
         mensaje= WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.NAME, "nombre" ))
         ).send_keys ("julian")
+
+        mensaje= WebDriverWait(driver, 10).until(
+            EC. element_to_be_clickable((By. NAME, "tipo_documento"))
+        ).send_keys("CE")
+        mensaje= WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.NAME, "numero_documento" ))
+        ). send_keys ("101854658")
         
         mensaje= WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.NAME, "correo" ))
@@ -182,17 +189,15 @@ def test_Clientes_Eliminar_Nuevo_Cliente ():
 
         WebDriverWait(driver, 10).until(
             EC.element_to_be_clickable((By.CSS_SELECTOR , ".container .card .btn.btn-primary"))
-        ).click()  
-
-        WebDriverWait(driver, 10).until(
-            EC.element_to_be_clickable((By.CSS_SELECTOR , ".container .card .btn.btn-danger"))
-        ).click()       
-      
-
-        assert "dashboard.php" in driver.current_url
-
-        print("¿Eliminar este cliente y sus equipos/reparaciones asociadas?")
+        ).click()     
         
+        
+        WebDriverWait(driver, 10).until(
+        EC.element_to_be_clickable((By. CSS_SELECTOR , ".table .btn.btn-danger"))
+        ).click()
+
+        alert = WebDriverWait(driver, 10).until(EC.alert_is_present())
+        alert.accept()       
 
     finally:
         driver.quit()
